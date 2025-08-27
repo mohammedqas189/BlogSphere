@@ -13,7 +13,11 @@ app.use(express.urlencoded({ extended: true }));
 
 //render the home page
 app.get("/", (req, res, next) => {
-  res.render("index.ejs");
+
+  res.render("index.ejs", {
+    titles: titleList,
+    articles: articleList,
+  });
 });
 
 // render the create post file
@@ -24,13 +28,10 @@ app.get("/create-post", (req, res, next) => {
 app.post("/", (req, res, next) => {
   titleList.push(req.body.title);
   articleList.push(req.body.article);
-  console.log(titleList); 
-  console.log(articleList); 
+  console.log(titleList);
+  console.log(articleList);
 
-  res.render("index.ejs", {
-    titles: titleList, 
-    articles: articleList
-  });
+  res.redirect("/");
 });
 
 // Run the server
