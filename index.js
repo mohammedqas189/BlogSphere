@@ -3,6 +3,9 @@ import express from "express";
 
 const app = express();
 const port = 4000;
+
+const titleList = [];
+const articleList = [];
 app.use(express.static("public"));
 
 // Use the urlencoded middleware
@@ -19,11 +22,15 @@ app.get("/create-post", (req, res, next) => {
 });
 
 app.post("/", (req, res, next) => {
-  const article = req.body.article;
-  const title = req.body.title; 
-  console.log(title);
-  console.log(article);
-  res.render("index.ejs");
+  titleList.push(req.body.title);
+  articleList.push(req.body.article);
+  console.log(titleList); 
+  console.log(articleList); 
+
+  res.render("index.ejs", {
+    titles: titleList, 
+    articles: articleList
+  });
 });
 
 // Run the server

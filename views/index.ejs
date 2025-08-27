@@ -1,12 +1,16 @@
 <%- include("partials/header.ejs") %>
 <body>
-  <ul>
-    <li>
-      <a href="/create-post">
-        <button>Create New Post</button>
-      </a>
-    </li>
-  </ul>
+  <a href="/create-post">
+    <button>Create New Post</button>
+  </a>
 
+  <% if (locals.titles && locals.articles && titles.length > 0) { %> 
+    <% titles.forEach( (title, index) => {  %>
+    <h2> <%= title %></h2>
+    <p> <%= articles[index]  %></p>
+    <% }) %>
+  <% } else { %> 
+        <h2>No blog is created, let's create your first blog!!!</h2>
+    <% } %>
   <%- include("partials/footer.ejs") %>
 </body>
