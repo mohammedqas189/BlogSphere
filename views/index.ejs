@@ -6,7 +6,9 @@
 
   <% if (locals.titles && locals.articles && titles.length > 0) { %> <%
   titles.forEach( (title, index) => { %>
-  <h2><%= title %></h2>
+  <a href="/view-blog/<%= index%>">
+    <h2><%= title %></h2>
+  </a>
   <p><%= articles[index] %></p>
   <a href="/update-post/<%= index %>">
     <button>Update</button>

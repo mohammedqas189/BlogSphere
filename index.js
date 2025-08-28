@@ -13,7 +13,6 @@ app.use(express.urlencoded({ extended: true }));
 
 //render the home page
 app.get("/", (req, res, next) => {
-
   res.render("index.ejs", {
     titles: titleList,
     articles: articleList,
@@ -27,20 +26,20 @@ app.get("/create-post", (req, res, next) => {
 
 // render the update post page
 app.get("/update-post/:index", (req, res, next) => {
-    const index = parseInt(req.params.index);   
-    const tiltToUpdate = titleList[index]; 
-    const articleToUpdate = articleList[index]; 
-    
-    res.render("post/updatepost.ejs", {
-      title: tiltToUpdate, 
-      article: articleToUpdate, 
-      index: index
-    })
-}); 
+  const index = parseInt(req.params.index);
+  const tiltToUpdate = titleList[index];
+  const articleToUpdate = articleList[index];
+
+  res.render("post/updatepost.ejs", {
+    title: tiltToUpdate,
+    article: articleToUpdate,
+    index: index,
+  });
+});
 
 app.post("/", (req, res, next) => {
   const index = req.body.index; // Hidden field from form
-  
+
   if (index === undefined || index === "") {
     // CREATE new post
     titleList.push(req.body.title);
@@ -51,21 +50,30 @@ app.post("/", (req, res, next) => {
     titleList[i] = req.body.title;
     articleList[i] = req.body.article;
   }
-  
+
   res.redirect("/");
 });
 
-// delete blog
-app.post('/:index', (req, res, next) => {
-  const index = parseInt(req.params.index); 
-
-  titleList.splice(index, 1); 
-  articleList.splice(index, 1); 
-
-    res.redirect("/");
-
+// view Blog
+app.get("/view-blog/:index", (req, res, next) => {
+  const index = parseInt(req.params.index);
+  const titleToView = titleList[index];
+  const articleToView = articleList[index];
+  res.render("post/viewpost.ejs", {
+    title: titleToView, 
+    article: articleToView
+    });
 });
 
+// delete blog
+app.post("/:index", (req, res, next) => {
+  const index = parseInt(req.params.index);
+
+  titleList.splice(index, 1);
+  articleList.splice(index, 1);
+
+  res.redirect("/");
+});
 
 // Run the server
 app.listen(port, () => {
