@@ -20,19 +20,52 @@ app.get("/", (req, res, next) => {
   });
 });
 
-// render the create post file
+// render the create post page
 app.get("/create-post", (req, res, next) => {
-  res.render("partials/createpost.ejs"); // Remove leading slash and use correct filename
+  res.render("post/createpost.ejs"); // Remove leading slash and use correct filename
 });
+
+// render the update post page
+app.get("/update-post/:index", (req, res, next) => {
+    const index = parseInt(req.params.index);   
+    const tiltToUpdate = titleList[index]; 
+    const articleToUpdate = articleList[index]; 
+    
+    res.render("post/updatepost.ejs", {
+      title: tiltToUpdate, 
+      article: articleToUpdate, 
+      index: index
+    })
+}); 
 
 app.post("/", (req, res, next) => {
-  titleList.push(req.body.title);
-  articleList.push(req.body.article);
-  console.log(titleList);
-  console.log(articleList);
-
+  const index = req.body.index; // Hidden field from form
+  
+  if (index === undefined || index === "") {
+    // CREATE new post
+    titleList.push(req.body.title);
+    articleList.push(req.body.article);
+  } else {
+    // UPDATE existing post
+    const i = parseInt(index);
+    titleList[i] = req.body.title;
+    articleList[i] = req.body.article;
+  }
+  
   res.redirect("/");
 });
+
+// delete blog
+app.post('/:index', (req, res, next) => {
+  const index = parseInt(req.params.index); 
+
+  titleList.splice(index, 1); 
+  articleList.splice(index, 1); 
+
+    res.redirect("/");
+
+});
+
 
 // Run the server
 app.listen(port, () => {

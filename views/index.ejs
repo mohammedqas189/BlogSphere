@@ -4,13 +4,17 @@
     <button>Create New Post</button>
   </a>
 
-  <% if (locals.titles && locals.articles && titles.length > 0) { %> 
-    <% titles.forEach( (title, index) => {  %>
-    <h2> <%= title %></h2>
-    <p> <%= articles[index]  %></p>
-    <% }) %>
-  <% } else { %> 
-        <h2>No blog is created, let's create your first blog!!!</h2>
-    <% } %>
-  <%- include("partials/footer.ejs") %>
+  <% if (locals.titles && locals.articles && titles.length > 0) { %> <%
+  titles.forEach( (title, index) => { %>
+  <h2><%= title %></h2>
+  <p><%= articles[index] %></p>
+  <a href="/update-post/<%= index %>">
+    <button>Update</button>
+  </a>
+  <form action="/<%= index %>" method="POST">
+    <button>Delete</button>
+  </form>
+  <% }) %> <% } else { %>
+  <h2>No blog is created, let's create your first blog!!!</h2>
+  <% } %> <%- include("partials/footer.ejs") %>
 </body>
