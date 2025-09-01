@@ -25,8 +25,10 @@ app.get("/create-post", (req, res, next) => {
 });
 
 // render the update post page
-app.get("/update-post/:index", (req, res, next) => {
-  const index = parseInt(req.params.index);
+app.get("/update-post/:title", (req, res, next) => {
+  const title = req.params.title;
+  const index = titleList.indexOf(title); 
+
   const tiltToUpdate = titleList[index];
   const articleToUpdate = articleList[index];
 
@@ -37,12 +39,13 @@ app.get("/update-post/:index", (req, res, next) => {
   });
 });
 
+// POST submitted, either new one, or updated one 
 app.post("/", (req, res, next) => {
   const index = req.body.index; // Hidden field from form
 
   if (index === undefined || index === "") {
     // CREATE new post
-    titleList.push(req.body.title);
+    titleList.push(req.body.title.trim());
     articleList.push(req.body.article);
   } else {
     // UPDATE existing post
@@ -55,14 +58,18 @@ app.post("/", (req, res, next) => {
 });
 
 // view Blog
-app.get("/view-blog/:index", (req, res, next) => {
-  const index = parseInt(req.params.index);
+app.get("/view-blog/:title", (req, res, next) => {
+  const title = req.params.title;
+  const index = titleList.indexOf(title);
+  if (index === -1) {
+    return res.status(404).send("Post not found");
+  }
   const titleToView = titleList[index];
   const articleToView = articleList[index];
   res.render("post/viewpost.ejs", {
-    title: titleToView, 
+    title: titleToView,
     article: articleToView
-    });
+  });
 });
 
 // delete blog

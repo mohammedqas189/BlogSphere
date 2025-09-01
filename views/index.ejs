@@ -6,14 +6,14 @@
 
   <% if (locals.titles && locals.articles && titles.length > 0) { %> <%
   titles.forEach( (title, index) => { %>
-  <a href="/view-blog/<%= index%>">
+  <a href="/view-blog/<%=title%>">
     <h2><%= title %></h2>
   </a>
   <p><%= articles[index] %></p>
-  <a href="/update-post/<%= index %>">
+  <a href="/update-post/<%=title%>">
     <button>Update</button>
   </a>
-  <form action="/<%= index %>" method="POST">
+  <form action="/<%=index%>" method="POST">
     <button>Delete</button>
   </form>
   <% }) %> <% } else { %>
