@@ -1,0 +1,53 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Navbar styles */
+header {
+    background: rgba(255,255,255,0.8);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border-bottom: 1px solid #d4d4d4;
+    position: fixed;
+    width: 100%;
+    background: transparent;
+    z-index: 1000;
+}
+
+.navbar {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px 20px;
+}
+
+.navbar-title {
+    padding: 60px auto;
+    font-size: 2rem;
+    font-weight: 100;
+    color: #222;
+    letter-spacing: 1.5px;
+    /* No width, no margin, left-aligned */
+}
+
+body {   
+    background-color: #fcf9fa;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    color: #222;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+    /* Only add top padding to the main container, not the header one */
+}
+
+.main-content { 
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 120px 0 40px 0; /* 120px top padding for fixed header */
+}
