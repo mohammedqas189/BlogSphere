@@ -1,4 +1,3 @@
-import { render } from "ejs";
 import express from "express";
 
 const app = express();
